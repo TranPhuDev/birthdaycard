@@ -41,3 +41,23 @@ test('rời trang Địa điểm trong <1s thì bản đồ không hiện', asyn
   await page.getByTestId('prev').click(); await page.waitForTimeout(1500)
   await expect(page.locator('iframe.mapframe').first()).toHaveCSS('opacity', '0')
 })
+
+test('màn ngang: bản đồ không lơ lửng ngoài thiệp', async ({ page }) => {
+  await page.setViewportSize({ width: 844, height: 390 })
+  await page.goto('/'); await openCard(page); await goTo(page, 'places')
+  await page.waitForTimeout(1600)
+  const book = await page.getByTestId('book').boundingBox()
+  for (const f of await page.locator('iframe.mapframe').all()) {
+    const shown = await f.evaluate(e => getComputedStyle(e).visibility !== 'hidden' && getComputedStyle(e).opacity !== '0')
+    if (!shown) continue
+    const b = await f.boundingBox()
+    expect(b.y).toBeGreaterThanOrEqual(book.y - 1); expect(b.y + b.height).toBeLessThanOrEqual(book.y + book.height + 1)
+  }
+})
+
+test('bản đồ chỉ tải khi tới trang Địa điểm', async ({ page }) => {
+  await page.goto('/'); await openCard(page)
+  for (const f of await page.locator('iframe.mapframe').all()) expect(await f.getAttribute('src')).toBeNull()
+  await goTo(page, 'places')
+  await expect(page.locator('iframe.mapframe').first()).toHaveAttribute('src', /maps\.google\.com/)
+})

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import gsap from 'gsap'
 
@@ -9,13 +9,23 @@ const SHOW_DELAY = 1
 export function MapOverlay({ targets, srcs, titles, visible }) {
   const frames = useRef([])
   const shown = useRef(false)
+  // Chỉ tải bản đồ khi tới trang Địa điểm lần đầu, để không giành mạng/CPU lúc mở thiệp.
+  const [loaded, setLoaded] = useState(false)
+  if (visible && !loaded) setLoaded(true)
 
   useEffect(() => {
     const els = frames.current
     let call = null
+    // Ô giữ chỗ bị trang cắt mất (vd. màn ngang) thì giấu iframe, không để lơ lửng ngoài thiệp.
     const place = () => targets.forEach((t, i) => {
-      const r = t.current?.getBoundingClientRect()
-      if (r) Object.assign(els[i].style, { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` })
+      const el = t.current
+      if (!el) return
+      const r = el.getBoundingClientRect(), face = el.closest('.face').getBoundingClientRect()
+      const inside = r.top >= face.top - 1 && r.bottom <= face.bottom + 1 && r.left >= face.left - 1 && r.right <= face.right + 1
+      Object.assign(els[i].style, {
+        left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px`,
+        visibility: inside ? 'visible' : 'hidden',
+      })
     })
     const hide = () => {
       call?.kill()
@@ -44,7 +54,7 @@ export function MapOverlay({ targets, srcs, titles, visible }) {
 
   return createPortal(
     srcs.map((src, i) => (
-      <iframe key={src} className="mapframe" title={titles[i]} src={src} ref={el => (frames.current[i] = el)} />
+      <iframe key={src} className="mapframe" title={titles[i]} src={loaded ? src : undefined} ref={el => (frames.current[i] = el)} />
     )),
     document.body,
   )

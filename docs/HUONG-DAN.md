@@ -62,6 +62,7 @@ Làm hết danh sách này **trên điện thoại** trước khi gửi cho mọ
 - [ ] Mở Google Sheet: có **2 dòng**, `Có` và `Không thể không đi`, kèm giờ.
 - [ ] Thử thêm một lần với tên `=1+1` (tab ẩn danh) → trong Sheet hiện đúng chữ `=1+1`, không bị tính thành `2`.
 - [ ] Dán link vào Zalo hoặc Messenger (gửi cho chính mình): thấy ảnh bìa thiệp và tiêu đề.
+- [ ] Bấm mở link **ngay trong Zalo** (không mở bằng Safari/Chrome), lật hết thiệp và gõ thử tên ở trang Xác nhận: bàn phím bật lên vẫn nhìn thấy ô tên và nút.
 - [ ] **Xoá các dòng thử** trong Sheet (chừa lại dòng tiêu đề).
 
 > Máy nào đã xác nhận rồi thì lần sau mở lại sẽ hiện luôn lời cảm ơn. Vì vậy hãy thử bằng tab ẩn danh.

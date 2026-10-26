@@ -57,3 +57,17 @@ test('desktop: rê chuột làm nút né', async ({ browser }) => {
   const a = await no.boundingBox(); expect(Math.hypot(a.x - b.x, a.y - b.y)).toBeGreaterThan(30)
   await ctx.close()
 })
+
+test('lộ chữ "Không thể không đi" thì nút nằm giữa, không bị cắt', async ({ page }) => {
+  await page.route(URL, r => new Promise(() => {})) // treo request để nhìn nút
+  await openRsvp(page)
+  await page.getByPlaceholder('Tên của bạn là…').fill('Dũng')
+  const no = page.locator('#no')
+  for (let i = 0; i < 4; i++) { await no.tap(); await page.waitForTimeout(450) }
+  await page.waitForTimeout(400)
+  await no.tap(); await expect(no).toHaveText('Không thể không đi 😏')
+  await page.waitForTimeout(800)
+  const area = await page.locator('.area').boundingBox(), b = await no.boundingBox()
+  expect(b.x).toBeGreaterThanOrEqual(area.x - 1); expect(b.x + b.width).toBeLessThanOrEqual(area.x + area.width + 1)
+  expect(Math.abs((b.x + b.width / 2) - (area.x + area.width / 2))).toBeLessThan(3)
+})

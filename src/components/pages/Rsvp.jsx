@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { content } from '../../content.js'
 import { Rich } from '../../lib/Rich.jsx'
@@ -19,6 +19,16 @@ export function Rsvp(props) {
   const [error, setError] = useState('')
   const [done, setDone] = useState(loadRsvp)
   usePageReveal(ref, props)
+
+  // Chữ "Không thể không đi" dài gấp đôi chữ "Không": đo lại sau khi đổi chữ rồi đưa nút về giữa vùng nút
+  // (dùng offset* để không bị ảnh hưởng bởi transform đang chạy).
+  useLayoutEffect(() => {
+    if (!troll.trolled || !noRef.current) return
+    const no = noRef.current, area = areaRef.current
+    const top = no.offsetTop + gsap.getProperty(no, 'y')
+    const y = Math.min(Math.max(top, 0), area.clientHeight - no.offsetHeight) - no.offsetTop
+    gsap.to(no, { x: (area.clientWidth - no.offsetWidth) / 2 - no.offsetLeft, y, rotation: 0, duration: 0.4, ease: 'power2.out' })
+  }, [troll.trolled])
 
   const askName = () => {
     setError(t.needName)

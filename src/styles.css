@@ -69,3 +69,6 @@ p { margin: 0; }
 .dots { display: flex; gap: 7px; }
 .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--rg4); transition: .3s; }
 .dots i.on { background: var(--accent); width: 22px; border-radius: 5px; }
+
+/* ---- thân trang ---- */
+[data-reveal] { position: absolute; inset: 0; padding: 28px 24px; display: flex; flex-direction: column; }

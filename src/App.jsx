@@ -1,18 +1,21 @@
+import { useRef } from 'react'
 import { Petals } from './components/Petals.jsx'
-import { Cover } from './components/pages/Cover.jsx'
-import { content } from './content.js'
+import { Book } from './components/Book.jsx'
+import { usePageReveal } from './components/pages/usePageReveal.js'
+
+const stub = key => function StubPage(props) {
+  const ref = useRef(null)
+  usePageReveal(ref, props)
+  return <div data-reveal ref={ref}><p className="a">Trang {key}</p></div>
+}
+
+const PAGES = ['greet', 'reason', 'invite', 'schedule', 'places', 'rsvp'].map(key => ({ key, Component: stub(key) }))
 
 export default function App() {
   return (
     <>
       <Petals />
-      <div className="wrap">
-        <div className="book">
-          <div className="page"><div className="face front"><Cover /></div></div>
-        </div>
-      </div>
-      <div className="hint">{content.openHint}</div>
-      <div className="nav" data-testid="nav" />
+      <Book pages={PAGES} />
     </>
   )
 }

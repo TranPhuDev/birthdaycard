@@ -116,3 +116,17 @@ h3.pt { font-family: 'Dancing Script', cursive; font-size: 34px; color: var(--ac
 .mapbox { width: 100%; height: calc(var(--h) * .17); border-radius: 6px; background: #f6ece6; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #c9a99a; }
 .mapframe { position: fixed; border: 0; border-radius: 6px; z-index: 50; opacity: 0; pointer-events: none; background: #f6ece6; }
 .go { display: block; margin-top: 6px; text-align: center; padding: 7px; border-radius: 20px; background: linear-gradient(90deg, var(--accent), #f0a090); color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; }
+
+/* Xác nhận */
+.rsvp .form { display: flex; flex-direction: column; }
+.rsvp input { width: 100%; padding: 10px 14px; border-radius: 24px; border: 1px solid var(--rg4); font: inherit; outline: none; margin-top: 14px; text-align: center; background: #fff; user-select: text; }
+.rsvp input:focus { border-color: var(--accent); }
+.err { color: #d0505a; font-size: 12px; min-height: 16px; margin-top: 4px; text-align: center; }
+.area { position: relative; height: 150px; margin-top: 10px; }
+.btn { position: absolute; top: 40px; padding: 10px 22px; border-radius: 26px; border: 0; font: 600 15px 'Be Vietnam Pro', sans-serif; cursor: pointer; white-space: nowrap; }
+#yes { left: 8%; background: linear-gradient(90deg, var(--accent), #f0a090); color: #fff; box-shadow: 0 6px 14px #e07d7866; }
+#no { right: 8%; background: #fff; color: var(--rg1); border: 1px solid var(--rg4); }
+.thanks .big { font-size: 40px; }
+.thanks-title { font-size: 30px; margin-top: 8px; }
+.recorded { margin-top: 12px; font-size: 12px; color: var(--muted); }
+.confetti { position: fixed; width: 8px; height: 14px; border-radius: 2px; pointer-events: none; z-index: 99; }

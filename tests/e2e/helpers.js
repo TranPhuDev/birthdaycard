@@ -5,7 +5,8 @@ export const active = (page, key) => page.locator(`[data-page="${key}"][data-act
 // Bìa đung đưa liên tục trên thiết bị cảm ứng nên không bao giờ "stable": chạm theo toạ độ.
 export async function openCard(page) {
   const b = await page.getByTestId('book').boundingBox()
-  await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2)
+  const x = b.x + b.width / 2, y = b.y + b.height / 2
+  try { await page.touchscreen.tap(x, y) } catch { await page.mouse.click(x, y) } // context không có touch → chuột
   await expect(active(page, 'greet')).toBeVisible({ timeout: 4000 })
 }
 
@@ -16,4 +17,8 @@ export async function goTo(page, key) {
     await page.locator('[data-active="true"]').first().waitFor({ timeout: 4000 })
   }
   await expect(active(page, key)).toBeVisible()
+}
+
+export async function openRsvp(page) {
+  await page.goto('/'); await openCard(page); await goTo(page, 'rsvp')
 }

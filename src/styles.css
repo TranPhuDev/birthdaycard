@@ -72,3 +72,47 @@ p { margin: 0; }
 
 /* ---- thân trang ---- */
 [data-reveal] { position: absolute; inset: 0; padding: 28px 24px; display: flex; flex-direction: column; }
+.a { will-change: transform, opacity; }
+h3.pt { font-family: 'Dancing Script', cursive; font-size: 34px; color: var(--accent); margin: 0 0 4px; text-align: center; }
+.pn { position: absolute; bottom: 10px; left: 0; width: 100%; text-align: center; font-size: 11px; color: #c9a99a; letter-spacing: .2em; }
+.center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.small { font-size: 14px; line-height: 1.6; }
+
+/* Lời chào */
+.greet .hey { font-size: 15px; }
+.greet .big { font-size: 30px; line-height: 1.1; margin-top: 12px; }
+.xp { width: 80%; height: 12px; border-radius: 8px; background: #f3e2da; margin: 18px 0 6px; overflow: hidden; }
+.xp i { display: block; height: 100%; width: 0; border-radius: 8px; background: linear-gradient(90deg, var(--rg4), var(--accent)); }
+.lv { font-size: 13px; letter-spacing: .15em; color: var(--rg1); }
+.lvup { font-weight: 700; color: var(--accent); font-size: 20px; margin-top: 6px; opacity: 0; }
+
+/* Lý do */
+.reason .n23 { font-size: 86px; font-weight: 700; line-height: 1; }
+.reason p { font-size: 14px; line-height: 1.6; margin-top: 8px; }
+
+/* Lời mời */
+.chips { margin: 10px 0; }
+.chip { display: inline-block; margin: 4px; padding: 6px 12px; border-radius: 20px; background: var(--bg2); border: 1px solid var(--rg4); font-weight: 600; font-size: 14px; }
+.when { margin-top: 12px; font-weight: 700; color: var(--rg1); }
+.cd { display: flex; gap: 8px; margin-top: 14px; justify-content: center; }
+.cd div { background: #fff; border: 1px solid #f3d2c6; border-radius: 8px; padding: 6px 0; width: 56px; text-align: center; }
+.cd b { display: block; font-size: 22px; font-family: 'Playfair Display', serif; color: var(--rg1); }
+.cd small { font-size: 10px; color: var(--muted); }
+.started { margin-top: 14px; font-weight: 700; font-size: 18px; color: var(--accent); }
+
+/* Lịch trình */
+.tl { position: relative; margin: 18px 0 0 14px; padding-left: 22px; }
+.tl .line { position: absolute; left: 0; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--rg4), var(--accent)); transform-origin: top; }
+.tl .it { position: relative; margin-bottom: 22px; }
+.tl .it::before { content: ""; position: absolute; left: -28px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid var(--accent); }
+.tl .time { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 20px; color: var(--rg1); }
+.tl .what { font-weight: 600; }
+.tl .note { font-size: 13px; color: var(--muted); }
+
+/* Địa điểm */
+.place { background: #fff; border: 1px solid #f3d2c6; border-radius: 10px; padding: 8px; margin-top: 10px; }
+.place b { font-size: 14px; }
+.place small { display: block; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+.mapbox { width: 100%; height: calc(var(--h) * .17); border-radius: 6px; background: #f6ece6; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #c9a99a; }
+.mapframe { position: fixed; border: 0; border-radius: 6px; z-index: 50; opacity: 0; pointer-events: none; background: #f6ece6; }
+.go { display: block; margin-top: 6px; text-align: center; padding: 7px; border-radius: 20px; background: linear-gradient(90deg, var(--accent), #f0a090); color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; }

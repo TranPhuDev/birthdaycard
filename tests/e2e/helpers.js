@@ -8,3 +8,12 @@ export async function openCard(page) {
   await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2)
   await expect(active(page, 'greet')).toBeVisible({ timeout: 4000 })
 }
+
+export async function goTo(page, key) {
+  for (let i = 0; i < 7; i++) {
+    if (await active(page, key).count()) return
+    await page.getByTestId('next').click()
+    await page.locator('[data-active="true"]').first().waitFor({ timeout: 4000 })
+  }
+  await expect(active(page, key)).toBeVisible()
+}

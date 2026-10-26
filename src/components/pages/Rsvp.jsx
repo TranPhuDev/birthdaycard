@@ -9,11 +9,11 @@ import { usePageReveal } from './usePageReveal.js'
 
 const t = content.rsvp
 const TROLL_CHOICE = 'Không thể không đi'
-const REVEAL_SUBMIT_DELAY = 900
+const REVEAL_MIN_SHOW_MS = 600 // chữ "Không thể không đi" hiện ít nhất chừng này cho khách kịp đọc
 
 export function Rsvp(props) {
   const ref = useRef(null), areaRef = useRef(null), yesRef = useRef(null), noRef = useRef(null), nameRef = useRef(null)
-  const trollRef = useRef(initialTroll()), sending = useRef(false), revealTimer = useRef(null)
+  const trollRef = useRef(initialTroll()), sending = useRef(false)
   const [troll, setTroll] = useState(trollRef.current)
   const [name, setName] = useState('')
   const [error, setError] = useState('')
@@ -36,13 +36,13 @@ export function Rsvp(props) {
     nameRef.current.focus()
   }
 
-  const send = async choice => {
+  const send = async (choice, minShowMs = 0) => {
     if (sending.current) return
     sending.current = true
     setError('')
     const n = normalizeName(name)
     try {
-      await submitRsvp({ name: n, choice })
+      await Promise.all([submitRsvp({ name: n, choice }), new Promise(r => setTimeout(r, minShowMs))])
       saveRsvp({ name: n, choice })
       setDone({ name: n, choice })
       burstConfetti()
@@ -72,11 +72,8 @@ export function Rsvp(props) {
     else if (action === 'reveal') {
       gsap.fromTo(noRef.current, { scale: 0.7 }, { scale: 1.1, duration: 0.7, ease: 'elastic.out(1,.4)' })
       gsap.to(yesRef.current, { opacity: 0, scale: 0.6, duration: 0.3 })
-      revealTimer.current = setTimeout(() => send(TROLL_CHOICE), REVEAL_SUBMIT_DELAY)
-    } else if (action === 'submit') {
-      clearTimeout(revealTimer.current)
-      send(TROLL_CHOICE)
-    }
+      send(TROLL_CHOICE, REVEAL_MIN_SHOW_MS) // gửi ngay, song song với lúc khách đọc chữ
+    } else if (action === 'submit') send(TROLL_CHOICE)
   }
 
   const hasName = () => normalizeName(name) !== ''

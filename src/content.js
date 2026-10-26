@@ -1,5 +1,5 @@
 // ✏️ Sửa 2 dòng này là đủ: tên trên thiệp và lời tự khen
-const hostName = '[Tên]'
+const hostName = 'Phú'
 const compliment = 'đẹp trai' // hoặc 'xinh gái'
 
 // Toàn bộ chữ và dữ liệu hiển thị trên thiệp nằm ở đây.
@@ -8,7 +8,7 @@ export const content = {
   hostName,
   age: 23,
   coverTitle: 'Happy Birthday',
-  coverDate: '30 · 10 · 2026',
+  coverDate: '31 · 10 · 2026',
   dateLabel: 'Thứ Sáu, 30/10/2026',
   partyStartISO: '2026-10-30T18:00:00+07:00',
   openHint: 'Chạm để mở',
@@ -26,7 +26,7 @@ export const content = {
     title: 'Lý do',
     paragraphs: [
       'Một năm qua code cũng nhiều, bug cũng lắm, deadline thì không đếm xuể…',
-      `Nên 30/10 này ${hostName} chính thức **release phiên bản 23.0** — ổn định hơn, ${compliment} hơn, và đặc biệt là **không có bug** (chắc vậy 😅).`,
+      `Nên 30/10(thực ra là 31/10) này ${hostName} chính thức **release phiên bản 23.0** — ổn định hơn, ${compliment} hơn, và đặc biệt là **không có bug** (chắc vậy 😅).`,
       'Một sự kiện trọng đại như vậy thì không thể thiếu bạn được!',
     ],
   },

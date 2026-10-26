@@ -71,3 +71,18 @@ test('lộ chữ "Không thể không đi" thì nút nằm giữa, không bị c
   expect(b.x).toBeGreaterThanOrEqual(area.x - 1); expect(b.x + b.width).toBeLessThanOrEqual(area.x + area.width + 1)
   expect(Math.abs((b.x + b.width / 2) - (area.x + area.width / 2))).toBeLessThan(3)
 })
+
+test('lộ chữ rồi gửi ngay, sang lời cảm ơn nhanh', async ({ page }) => {
+  let reqAt = 0
+  await page.route(URL, r => { reqAt = Date.now(); r.fulfill({ status: 200, body: '{"ok":true}' }) })
+  await openRsvp(page)
+  await page.getByPlaceholder('Tên của bạn là…').fill('Én')
+  const no = page.locator('#no')
+  for (let i = 0; i < 4; i++) { await no.tap(); await page.waitForTimeout(450) }
+  await page.waitForTimeout(400)
+  const t0 = Date.now()
+  await no.tap()
+  await expect(no).toHaveText('Không thể không đi 😏')
+  await expect(page.getByText('Hẹn gặp Én')).toBeVisible({ timeout: 1500 })
+  expect(reqAt - t0).toBeLessThan(400)
+})
